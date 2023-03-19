@@ -84,7 +84,7 @@ const PostWidget = ({
         setComment("");
     }
 
-    useEffect(() => { }, []);
+    useEffect(() => { }, [likes]);
 
 
 
