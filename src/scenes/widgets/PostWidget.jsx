@@ -84,6 +84,8 @@ const PostWidget = ({
         setComment("");
     }
 
+    useEffect(() => { }, []);
+
 
 
     return (
