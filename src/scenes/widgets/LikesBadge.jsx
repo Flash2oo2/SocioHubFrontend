@@ -24,7 +24,7 @@ const LikesBadge = ({ likes }) => {
 
         setLikedUser((prevState) => {
 
-
+            console.log(likedUser);
             return ([...prevState, { likedUserPicture: data.picturePath, likedUsername: `${data.firstName} ${data.lastName}` }])
         });
         // setLikedUser({ likedUserPicture: data.picturePath, likedUsername: `${data.firstName} ${data.lastName}` })
