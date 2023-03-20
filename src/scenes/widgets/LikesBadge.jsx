@@ -54,10 +54,10 @@ const LikesBadge = ({ likes }) => {
     }
 
     useEffect(() => {
-        if (x !== 0)
-            feedData();
+        // if (x !== 0)
+        feedData();
 
-        x++;
+        // x++;
 
     }, []) //eslint-disable-line react-hooks/exhaustive-deps
 
