@@ -9,7 +9,8 @@ import {
     useMediaQuery,
     Badge,
     IconButton,
-    InputBase
+    InputBase,
+    CircularProgress
 } from "@mui/material"
 import FlexBetween from "../../components/FlexBetween"
 import {
@@ -39,6 +40,7 @@ const StoriesWidget = ({ userId, isProfile = false }) => {
     const storyWidth = isNonMobileScreens ? "580px" : "100%";
 
     const token = useSelector((state) => state.token);
+    const [isLoading, setIsLoading] = useState(false);
     const [open, setOpen] = useState(false);
     const [image, setImage] = useState(null);
 
@@ -58,6 +60,7 @@ const StoriesWidget = ({ userId, isProfile = false }) => {
         setOpen(false);
     };
     const handlePost = async () => {
+        setIsLoading(true)
         const formData = new FormData();
         formData.append("userId", _id);
         formData.append("description", description);
@@ -79,6 +82,7 @@ const StoriesWidget = ({ userId, isProfile = false }) => {
         setImage(null);
         setDiscription("");
         handleClose();
+        setIsLoading(false);
 
     };
 
@@ -303,7 +307,15 @@ const StoriesWidget = ({ userId, isProfile = false }) => {
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={handleClose}>Cancel</Button>
-                        <Button onClick={handlePost}>Create</Button>
+                        <Button onClick={handlePost}>
+                            {!isLoading ?
+                                ('Create') :
+                                (<CircularProgress sx={{
+                                    color: palette.neutral.dark,
+                                }}
+                                    size={22} />)
+                            }
+                        </Button>
                     </DialogActions>
                 </Dialog>
 

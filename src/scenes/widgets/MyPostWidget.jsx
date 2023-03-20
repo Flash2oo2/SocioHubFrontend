@@ -17,7 +17,8 @@ import {
     useTheme,
     Button,
     IconButton,
-    useMediaQuery
+    useMediaQuery,
+    CircularProgress
 } from "@mui/material"
 
 import FlexBetween from "../../components/FlexBetween"
@@ -33,6 +34,7 @@ import baseUrl from "../../baseUrl"
 
 const MyPostWidget = ({ picturePath }) => {
     const dispatch = useDispatch();
+    const [isLoading, setIsLoading] = useState(false);
     const [isImage, setIsImage] = useState(false);
     const [image, setImage] = useState(null);
     const [isEmoji, setIsEmoji] = useState(false);
@@ -61,6 +63,7 @@ const MyPostWidget = ({ picturePath }) => {
     }
 
     const handlePost = async () => {
+        setIsLoading(true)
         const formData = new FormData();
         formData.append("userId", _id);
         formData.append("description", post);
@@ -77,7 +80,9 @@ const MyPostWidget = ({ picturePath }) => {
         const posts = await response.json();
         dispatch(setPosts({ posts }));
         setImage(null);
-        setPost("")
+        setPost("");
+        setIsImage(false)
+        setIsLoading(false)
     };
 
     return (
@@ -200,7 +205,10 @@ const MyPostWidget = ({ picturePath }) => {
                         borderRadius: "3rem"
                     }}
                 >
-                    POST
+                    {!isLoading ? ("POST") : (<CircularProgress sx={{
+                        color: palette.neutral.dark,
+                    }}
+                        size={22} />)}
                 </Button>
             </FlexBetween>
         </WidgetWrapper>

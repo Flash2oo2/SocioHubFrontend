@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Box,
   Button,
@@ -7,7 +7,8 @@ import {
   Typography,
   useTheme,
   Snackbar,
-  Alert
+  Alert,
+  CircularProgress
 } from "@mui/material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { Formik } from "formik";
@@ -18,6 +19,8 @@ import { setLogin } from "../../state";
 import Dropzone from "react-dropzone";
 import FlexBetween from "../../components/FlexBetween";
 import baseUrl from "../../baseUrl";
+
+
 
 var count = 0;
 const registerSchema = yup.object().shape({
@@ -52,6 +55,7 @@ const initialValuesLogin = {
 
 const Form = () => {
   const [pageType, setPageType] = useState("login");
+  const [isLoading, setIsLoading] = useState(false);
   const { palette } = useTheme();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -67,6 +71,7 @@ const Form = () => {
 
   const register = async (values, onSubmitProps) => {
     // this allows us to send form info with image
+    setIsLoading(true)
     const formData = new FormData();
     for (let value in values) {
       formData.append(value, values[value]);
@@ -82,13 +87,14 @@ const Form = () => {
     );
     const savedUser = await savedUserResponse.json();
     onSubmitProps.resetForm();
-
+    setIsLoading(false)
     if (savedUser) {
       setPageType("login");
     }
   };
 
   const login = async (values, onSubmitProps) => {
+    setIsLoading(true);
     const loggedInResponse = await fetch(`${baseUrl}auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -99,7 +105,7 @@ const Form = () => {
     onSubmitProps.resetForm();
 
 
-
+    setIsLoading(false)
 
 
     if (loggedIn) {
@@ -128,6 +134,8 @@ const Form = () => {
     if (isLogin) await login(values, onSubmitProps);
     if (isRegister) await register(values, onSubmitProps);
   };
+
+  useEffect(() => console.log(true), [isLoading])
 
   return (
 
@@ -277,9 +285,11 @@ const Form = () => {
 
             {/* BUTTONS */}
             <Box>
+
               <Button
                 fullWidth
                 type="submit"
+                disabled={isLoading}
                 sx={{
                   m: "2rem 0",
                   p: "1rem",
@@ -288,8 +298,16 @@ const Form = () => {
                   "&:hover": { color: palette.primary.main },
                 }}
               >
-                {isLogin ? "LOGIN" : "REGISTER"}
+                {isLoading ? (<CircularProgress sx={{
+                  color: palette.neutral.dark,
+                }}
+                  size={22} />) :
+                  isLogin ? ("LOGIN") : ("REGISTER")
+                }
               </Button>
+
+
+
               <Typography
                 onClick={() => {
                   setPageType(isLogin ? "register" : "login");
@@ -308,6 +326,8 @@ const Form = () => {
                   ? "Don't have an account? Sign Up here."
                   : "Already have an account? Login here."}
               </Typography>
+
+
             </Box>
           </form>
         )}
