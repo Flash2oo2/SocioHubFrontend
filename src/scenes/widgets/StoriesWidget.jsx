@@ -53,7 +53,6 @@ const StoriesWidget = ({ userId, isProfile = false }) => {
     const { picturePath: userPicture } = useSelector((state) => state.user);
     const handleClickOpen = () => {
         setOpen(true);
-        console.log(stories);
     };
 
     const handleClose = () => {
@@ -244,10 +243,7 @@ const StoriesWidget = ({ userId, isProfile = false }) => {
                 <Dialog open={open} onClose={handleClose} >
                     <DialogTitle>Create Your Story</DialogTitle>
                     <DialogContent >
-                        {/* <DialogContentText>
-                        To subscribe to this website, please enter your email address here. We
-                        will send updates occasionally.
-                    </DialogContentText> */}
+
                         <InputBase
                             placeholder="What's on your mind..."
                             onChange={(e) => setDiscription(e.target.value)}

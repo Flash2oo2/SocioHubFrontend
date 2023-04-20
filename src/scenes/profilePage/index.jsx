@@ -1,4 +1,4 @@
-import { Box, Typography, useMediaQuery } from "@mui/material";
+import { Box, Typography, useMediaQuery, CircularProgress } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -21,28 +21,51 @@ const ProfilePage = () => {
         "https://res.cloudinary.com/dljzfnas0/image/upload/v1677337307/SocioHub/low_poly_banner_design_1711_ltnwif.jpg"
     ];
     const [user, setUser] = useState(null);
+    const [trigger, setTrigger] = useState(false);
+    const [count, setCount] = useState(1);
     const { userId } = useParams();
     const token = useSelector((state) => state.token)
     const loggedInUserId = useSelector((state) => state.user._id);
     const isNonMobileScreens = useMediaQuery("(min-width:1000px)")
 
     const getUser = async () => {
+
         const response = await fetch(`${baseUrl}users/${userId}`, {
             method: "GET",
             headers: { Authorization: `Bearer ${token}` }
         });
         const data = await response.json();
         setUser(data);
+        // setTimeout(() => {
+        //     setTrigger(true);
+        // }, "5000")
+
     }
 
     useEffect(() => {
+        setTimeout(() => {
+            setTrigger(true);
+        }, "2000")
         getUser();
     }, []) //eslint-disable-line react-hooks/exhaustive-deps
 
     if (!user)
         return null;
+    if (trigger === false)
+        return <></>
+
+    // if (!trigger)
+    //     return (<Box sx={{
+    //         marginLeft: "45%",
+    //         marginTop: "10%",
+
+    //     }}>
+    //         <CircularProgress size={100} sx={{ color: "#232f3e" }} />
+    //     </Box >)
+
 
     return (
+
         <Box>
             <Navbar />
             {isNonMobileScreens &&
@@ -80,7 +103,7 @@ const ProfilePage = () => {
                     <StoriesWidget userId={userId} isProfile={true} />
                     {loggedInUserId === userId && (<MyPostWidget picturePath={user.picturePath} />)}
                     <Box m="2rem 0" />
-                    <PostsWidget userId={userId} isProfile />
+                    <PostsWidget userId={userId} isProfile={true} />
                 </Box>
 
             </Box>

@@ -54,8 +54,6 @@ const MyPostWidget = ({ picturePath }) => {
         setChosenEmoji(emojiObject);
         setPost((prevPost) => prevPost + emojiObject.emoji);
 
-        console.log(post);
-
     }
 
     const handleIsEmoji = () => {
