@@ -20,6 +20,7 @@ const ProfilePage = () => {
         "https://res.cloudinary.com/dljzfnas0/image/upload/v1677337294/SocioHub/circuit_network_abstract_shape_in_diagonal_shinny_background_wwvjgc.jpg",
         "https://res.cloudinary.com/dljzfnas0/image/upload/v1677337307/SocioHub/low_poly_banner_design_1711_ltnwif.jpg"
     ];
+
     const [user, setUser] = useState(null);
     const [trigger, setTrigger] = useState(false);
     const [count, setCount] = useState(1);
@@ -27,6 +28,7 @@ const ProfilePage = () => {
     const token = useSelector((state) => state.token)
     const loggedInUserId = useSelector((state) => state.user._id);
     const isNonMobileScreens = useMediaQuery("(min-width:1000px)")
+    const [idx, setIdx] = useState(0);
 
     const getUser = async () => {
 
@@ -47,6 +49,7 @@ const ProfilePage = () => {
             setTrigger(true);
         }, "2000")
         getUser();
+        setIdx(Math.floor(Math.random() * 3));
     }, []) //eslint-disable-line react-hooks/exhaustive-deps
 
     if (!user)
@@ -71,7 +74,7 @@ const ProfilePage = () => {
             {isNonMobileScreens &&
                 (<Box display="flex" flexDirection="column" alignItems="center" marginBottom="-3rem">
                     <Box sx={{ height: "240px", width: "100%", overflow: "hidden", position: "relative", paddingLeft: "20%", paddingRight: "20%", marginTop: "2rem", }}>
-                        <img src={backgroundProfilePic[1]} width="100%" height="auto" />
+                        <img src={backgroundProfilePic[idx]} width="100%" height="auto" />
 
                     </Box>
                     <Box display="flex" flexDirection="column" alignItems="center"

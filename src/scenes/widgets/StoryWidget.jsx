@@ -16,6 +16,10 @@ const StoryWidget = ({
 
     const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
     const { palette } = useTheme();
+    // var ppath = picturePath;
+
+    // ppath.replace("upload/", "upload/e_improve,w_600,h_900,c_thumb,g_auto/");
+    // console.log(ppath)
 
     const [open, setOpen] = useState(false);
 
@@ -30,6 +34,7 @@ const StoryWidget = ({
     return (
         <>
             {
+
                 isNonMobileScreens ?
                     (<Box width="6rem!important"
                         height="9rem"
