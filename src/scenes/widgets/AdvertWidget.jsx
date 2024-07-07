@@ -30,18 +30,17 @@ const AdvertWidget = () => {
                 width="100%"
                 height="auto"
                 alt="advert"
-                src="https://res.cloudinary.com/dljzfnas0/image/upload/v1676399426/SocioHub/info4_vtcktz.jpg"
+                src="https://res.cloudinary.com/dljzfnas0/image/upload/v1720359646/fnbv3ignqourcobvge1a.jpg"
                 style={{ borderRadius: "0.75rem", margin: "0.75rem" }}
             />
 
             <FlexBetween>
-                <Typography color={main}>MikaCosmetics</Typography>
-                <Typography color={medium}>mikacosmetics.com</Typography>
+                <Typography color={main}>TravelQATAR</Typography>
+                <Typography color={medium}>travelqatar.com</Typography>
 
             </FlexBetween>
             <Typography color={medium}>
-                Your pathway to stunning  and immaculate beauty and made sure your
-                skin is exfoliating skin and shining like light.
+                Unlock the adventure of a lifetime with our tailor-made travel experiences – your dream destinations are just a click away!
             </Typography>
         </WidgetWrapper>
     )
